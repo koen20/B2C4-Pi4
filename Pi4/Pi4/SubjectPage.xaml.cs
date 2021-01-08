@@ -1,4 +1,5 @@
 ﻿using Pi4.model;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,16 +15,28 @@ namespace Pi4
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SubjectPage : ContentPage
     {
-        ObservableCollection<Category> categories;
+        private Topic topic;
 
-        public SubjectPage()
+        public SubjectPage(Topic topic)
         {
+            this.topic = topic;
             InitializeComponent();
-            categories = new ObservableCollection<Category>();
-            categories.Add(new Category("Tips"));
-            categories.Add(new Category("Handige links"));
-            categories.Add(new Category("Categorie toevoegen"));
-            ListViewTopicCategories.ItemsSource = categories;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateCategories();
+        }
+
+        private void UpdateCategories() {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.CreateTable<Category>();
+                List<Category> categories = connection.Query<Category>("SELECT * FROM Category WHERE TopicId = ?", topic.Id).ToList();
+                categories.Add(new Category() { Title = "Categorie toevoegen" });
+                ListViewTopicCategories.ItemsSource = categories;
+            }
         }
 
         private void ListViewTopicCategories_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -47,8 +60,19 @@ namespace Pi4
         async void NewCategory()
         {
             string result = await DisplayPromptAsync("Nieuwe categorie", "Voer de naam van de nieuwe categorie in");
-            categories.Add(new Category(result));
+            Category category = new Category() { Title = result, TopicId =  topic.Id};
+
+            using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.CreateTable<Category>();
+                int rows = connection.Insert(category);
+                if (rows == 0)
+                {
+                    DisplayAlert("Mislukt", "De categorie kon niet worden toegevoegd", "Ok");
+                }
+            }
+            UpdateCategories();
 
         }
-        }
+    }
 }

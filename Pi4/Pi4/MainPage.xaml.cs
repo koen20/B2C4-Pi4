@@ -1,4 +1,5 @@
 ﻿using Pi4.model;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,16 +12,25 @@ namespace Pi4
 {
     public partial class MainPage : ContentPage
     {
-        List<Topic> topics;
         public MainPage()
         {
             InitializeComponent();
+        }
 
-            topics = new List<Topic>();
-            topics.Add(new Topic("onderwerp1"));
-            topics.Add(new Topic("onderwerp2"));
-            topics.Add(new Topic("Onderwerp toevoegen"));
-            listViewTopics.ItemsSource = topics;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateTopics();
+        }
+
+        private void UpdateTopics() {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.CreateTable<Topic>();
+                List<Topic> topics = connection.Table<Topic>().ToList();
+                topics.Add(new Topic() { Title = "Onderwerp toevoegen" });
+                listViewTopics.ItemsSource = topics;
+            }
         }
 
         private void listViewTopics_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -31,10 +41,11 @@ namespace Pi4
                 if (selectedTopic.Title == "Onderwerp toevoegen")
                 {
                     Navigation.PushAsync(new AddTopicPage());
+                    UpdateTopics();
                 }
                 else
                 {
-                    Navigation.PushAsync(new SubjectPage());
+                    Navigation.PushAsync(new SubjectPage(selectedTopic));
                 }
             }
             ((ListView)sender).SelectedItem = null;

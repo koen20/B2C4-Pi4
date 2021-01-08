@@ -4,7 +4,7 @@
              x:Class="Pi4.AddTopicPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Titel" />
+            <Entry x:Name="entryTopicName" Placeholder="Titel" />
             <Label Text="Categoriën:" />
             <ListView x:Name="ListViewCategories" ItemSelected="ListViewCategories_ItemSelected">
                 <ListView.ItemTemplate>

@@ -20,19 +20,14 @@ namespace Pi4
         {
             InitializeComponent();
             categoryItems = new List<CategoryItem>();
-            CategoryItem categoryItem = new CategoryItem("Een prachtige titel")
+            CategoryItem categoryItem2 = new CategoryItem()
             {
-                ShortDescription = "Beschijving",
-                Link = ""
-            };
-            CategoryItem categoryItem2 = new CategoryItem("Een prachtige titel met link")
-            {
+                Title = "Een prachtige titel met link",
                 ShortDescription = "Beschijving",
                 Link = "https://koenhabets.nl"
             };
-            categoryItems.Add(categoryItem);
             categoryItems.Add(categoryItem2);
-            categoryItems.Add(new CategoryItem("Nieuw item toevoegen"));
+            categoryItems.Add(new CategoryItem() { Title = "Nieuw item toevoegen" });
             ListViewCategoryItems.ItemsSource = categoryItems;
         }
 

@@ -1,18 +1,15 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Pi4.model
 {
-    class Topic
+    public class Topic
     {
-        public Topic(string Title)
-        {
-            this.Title = Title;
-        }
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-
+        [MaxLength(250)]
         public string Title { get; set; }
     }
 }
