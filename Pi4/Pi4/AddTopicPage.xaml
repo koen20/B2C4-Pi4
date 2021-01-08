@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pi4.AddTopicPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Titel" />
+            <Label Text="Categoriën:" />
+            <ListView x:Name="ListViewCategories" ItemSelected="ListViewCategories_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}"></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="DeleteToolbarItem" Text="Verwijderen" Icon="delete.svg" Clicked="DeleteToolbarItem_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="SaveToolbarItem" Text="Opslaan" Icon="done.png" Clicked="SaveToolbarItem_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</ContentPage>
