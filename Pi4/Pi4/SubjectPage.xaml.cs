@@ -50,7 +50,7 @@ namespace Pi4
                 }
                 else
                 {
-                    Navigation.PushAsync(new CategoryItemsPage());
+                    Navigation.PushAsync(new CategoryItemsPage(selectedCategory));
 
                 }
                 ListViewTopicCategories.SelectedItem = null;

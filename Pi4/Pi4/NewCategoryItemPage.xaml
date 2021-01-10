@@ -4,15 +4,15 @@
              x:Class="Pi4.NewCategoryItemPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Titel" />
-            <Entry Placeholder="Link" />
-            <Entry Placeholder="Beschijving" />
-            <Editor AutoSize="TextChanges" Placeholder="Content" />
+            <Entry x:Name="entryTitle" Placeholder="Titel" />
+            <Entry x:Name="entryLink" Placeholder="Link" />
+            <Entry x:Name="entryDesc" Placeholder="Beschijving" />
+            <Editor x:Name="entryContent" AutoSize="TextChanges" Placeholder="Content" />
         </StackLayout>
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="DeleteToolbarItem" Text="Verwijderen" Icon="delete.svg"></ToolbarItem>
-        <ToolbarItem x:Name="SaveToolbarItem" Text="Opslaan" Icon="done.png"></ToolbarItem>
+        <ToolbarItem x:Name="DeleteToolbarItem" Text="Verwijderen" Icon="delete.svg" Clicked="DeleteToolbarItem_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="SaveToolbarItem" Text="Opslaan" Icon="done.png" Clicked="SaveToolbarItem_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 </ContentPage>

@@ -6,13 +6,6 @@
         <StackLayout>
             <Entry x:Name="entryTopicName" Placeholder="Titel" />
             <Label Text="Categoriën:" />
-            <ListView x:Name="ListViewCategories" ItemSelected="ListViewCategories_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Title}"></TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
         </StackLayout>
     </ContentPage.Content>
 

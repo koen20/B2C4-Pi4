@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pi4.model
 {
-    class Category
+    public class Category
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

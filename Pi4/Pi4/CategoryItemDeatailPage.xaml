@@ -4,12 +4,13 @@
              x:Class="Pi4.CategoryItemDeatailPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Item details"
+            <Label x:Name="labelTitle" Text="" />
+            <Label x:Name="labelContent" Text="Item details"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="ShareToolbarItem" Text="Delen"></ToolbarItem>
+        <ToolbarItem x:Name="ShareToolbarItem" Text="Delen" Clicked="ShareToolbarItem_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 </ContentPage>

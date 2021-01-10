@@ -1,4 +1,5 @@
 ﻿using Pi4.model;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,21 +15,30 @@ namespace Pi4
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CategoryItemsPage : ContentPage
     {
-        List<CategoryItem> categoryItems;
+        private List<CategoryItem> categoryItems;
+        private Category category;
 
-        public CategoryItemsPage()
+        public CategoryItemsPage(Category category)
         {
             InitializeComponent();
-            categoryItems = new List<CategoryItem>();
-            CategoryItem categoryItem2 = new CategoryItem()
+            this.category = category;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateCategoryItems();
+        }
+
+        private void UpdateCategoryItems()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                Title = "Een prachtige titel met link",
-                ShortDescription = "Beschijving",
-                Link = "https://koenhabets.nl"
-            };
-            categoryItems.Add(categoryItem2);
-            categoryItems.Add(new CategoryItem() { Title = "Nieuw item toevoegen" });
-            ListViewCategoryItems.ItemsSource = categoryItems;
+                connection.CreateTable<CategoryItem>();
+                List<CategoryItem> categoryItems = connection.Query<CategoryItem>("SELECT * FROM CategoryItem WHERE CategoryId = ?", category.Id).ToList();
+                categoryItems.Add(new CategoryItem() { Title = "Nieuw item toevoegen" });
+                ListViewCategoryItems.ItemsSource = categoryItems;
+            }
         }
 
         private void ListViewCategoryItems_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -38,7 +48,8 @@ namespace Pi4
                 var selectedCategoryItem = ListViewCategoryItems.SelectedItem as CategoryItem;
                 if (selectedCategoryItem.Title == "Nieuw item toevoegen")
                 {
-                    Navigation.PushAsync(new NewCategoryItemPage());
+                    Navigation.PushAsync(new NewCategoryItemPage(new CategoryItem() { CategoryId = category.Id }));
+                    UpdateCategoryItems();
                 }
                 else
                 {
@@ -48,7 +59,7 @@ namespace Pi4
                     }
                     else
                     {
-                        Navigation.PushAsync(new CategoryItemDeatailPage());
+                        Navigation.PushAsync(new CategoryItemDeatailPage(selectedCategoryItem));
                     }
                 }
             }

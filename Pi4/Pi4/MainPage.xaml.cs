@@ -40,7 +40,7 @@ namespace Pi4
                 var selectedTopic = listViewTopics.SelectedItem as Topic;
                 if (selectedTopic.Title == "Onderwerp toevoegen")
                 {
-                    Navigation.PushAsync(new AddTopicPage());
+                    Navigation.PushAsync(new AddTopicPage(new Topic()));
                     UpdateTopics();
                 }
                 else
