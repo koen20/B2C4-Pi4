@@ -1,6 +1,7 @@
 ﻿using Pi4.model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Pi4
             InitializeComponent();
             labelTitle.Text = categoryItem.Title;
             labelContent.Text = categoryItem.Content;
+            imageItem.Source = categoryItem.ImageCover;
         }
 
         private void ShareToolbarItem_Clicked(object sender, EventArgs e)

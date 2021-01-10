@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pi4.NewCategoryItemPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry x:Name="entryTitle" Placeholder="Titel" />
-            <Entry x:Name="entryLink" Placeholder="Link" />
-            <Entry x:Name="entryDesc" Placeholder="Beschijving" />
-            <Editor x:Name="entryContent" AutoSize="TextChanges" Placeholder="Content" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Entry x:Name="entryTitle" Placeholder="Titel" />
+                <Entry x:Name="entryLink" Placeholder="Link" />
+                <Entry x:Name="entryDesc" Placeholder="Beschijving" />
+                <Button Text="Voeg icoon toe" Clicked="ButtonIcon_Clicked" />
+                <Button Text="Voeg afbeelding toe" Clicked="ButtonCover_Clicked"/>
+                <Editor x:Name="entryContent" AutoSize="TextChanges" Placeholder="Content" />
+                <Image x:Name="image" Source="" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>

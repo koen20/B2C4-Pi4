@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pi4.CategoryItemDeatailPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="labelTitle" Text="" />
-            <Label x:Name="labelContent" Text="Item details"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Image x:Name="imageItem" Source="asdf.png" Aspect="AspectFill" HeightRequest="150"/>
+                <Label x:Name="labelTitle" Text="" />
+                <Label x:Name="labelContent" Text="Item details" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ShareToolbarItem" Text="Delen" Clicked="ShareToolbarItem_Clicked"></ToolbarItem>

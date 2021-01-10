@@ -6,7 +6,7 @@
         <ListView x:Name="ListViewCategoryItems" ItemSelected="ListViewCategoryItems_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Title}"></TextCell>
+                    <ImageCell ImageSource="{Binding ImageIcon}" Text="{Binding Title}" Detail="{Binding ShortDescription}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

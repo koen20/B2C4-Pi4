@@ -19,6 +19,8 @@ namespace Pi4.model
         [MaxLength(250)]
         public string Link { get; set; }
         [MaxLength(250)]
-        public string Image { get; set; }
+        public string ImageIcon { get; set; }
+        [MaxLength(250)]
+        public string ImageCover { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,14 @@ namespace Pi4
         {
             InitializeComponent();
             this.categoryItem = categoryItem;
+
         }
 
         private void SaveToolbarItem_Clicked(object sender, EventArgs e)
         {
             using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
             {
+
                 categoryItem.Title = entryTitle.Text;
                 categoryItem.Link = entryLink.Text;
                 categoryItem.ShortDescription = entryDesc.Text;
@@ -48,6 +51,42 @@ namespace Pi4
         private void DeleteToolbarItem_Clicked(object sender, EventArgs e)
         {
 
+        }
+
+        private async void ButtonIcon_Clicked(object sender, EventArgs e)
+        {
+            Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            if (stream != null)
+            {
+                image.Source = ImageSource.FromStream(() => stream);
+
+                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "image-" + (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond) + ".png");
+
+                using (var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    stream.CopyTo(fileStream);
+                }
+
+                categoryItem.ImageIcon = fileName;
+            }
+        }
+
+        private async void ButtonCover_Clicked(object sender, EventArgs e)
+        {
+            Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            if (stream != null)
+            {
+                image.Source = ImageSource.FromStream(() => stream);
+
+                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "image-" + (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond) + ".png");
+
+                using (var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    stream.CopyTo(fileStream);
+                }
+
+                categoryItem.ImageCover = fileName;
+            }
         }
     }
 }
