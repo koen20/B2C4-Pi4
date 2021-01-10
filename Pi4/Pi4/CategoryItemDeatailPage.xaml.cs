@@ -21,7 +21,14 @@ namespace Pi4
             InitializeComponent();
             labelTitle.Text = categoryItem.Title;
             labelContent.Text = categoryItem.Content;
-            imageItem.Source = categoryItem.ImageCover;
+            if (categoryItem.ImageCover == null)
+            {
+                stackLayout.Children.Remove(imageItem);
+            }
+            else {
+                imageItem.Source = categoryItem.ImageCover;
+            }
+            
         }
 
         private void ShareToolbarItem_Clicked(object sender, EventArgs e)

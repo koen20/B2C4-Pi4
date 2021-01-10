@@ -20,6 +20,7 @@ namespace Pi4
         public SubjectPage(Topic topic)
         {
             this.topic = topic;
+            Title = topic.Title;
             InitializeComponent();
         }
 
@@ -60,19 +61,21 @@ namespace Pi4
         async void NewCategory()
         {
             string result = await DisplayPromptAsync("Nieuwe categorie", "Voer de naam van de nieuwe categorie in");
-            Category category = new Category() { Title = result, TopicId =  topic.Id};
-
-            using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
+            if (result != "")
             {
-                connection.CreateTable<Category>();
-                int rows = connection.Insert(category);
-                if (rows == 0)
-                {
-                    DisplayAlert("Mislukt", "De categorie kon niet worden toegevoegd", "Ok");
-                }
-            }
-            UpdateCategories();
+                Category category = new Category() { Title = result, TopicId = topic.Id };
 
+                using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
+                {
+                    connection.CreateTable<Category>();
+                    int rows = connection.Insert(category);
+                    if (rows == 0)
+                    {
+                        DisplayAlert("Mislukt", "De categorie kon niet worden toegevoegd", "Ok");
+                    }
+                }
+                UpdateCategories();
+            }
         }
     }
 }

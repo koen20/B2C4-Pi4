@@ -4,9 +4,9 @@
              x:Class="Pi4.CategoryItemDeatailPage">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout x:Name="stackLayout">
                 <Image x:Name="imageItem" Source="asdf.png" Aspect="AspectFill" HeightRequest="150"/>
-                <Label x:Name="labelTitle" Text="" />
+                <Label x:Name="labelTitle" Text="" FontSize="Large" />
                 <Label x:Name="labelContent" Text="Item details" />
             </StackLayout>
         </ScrollView>

@@ -22,6 +22,7 @@ namespace Pi4
         {
             InitializeComponent();
             this.category = category;
+            Title = category.Title;
         }
 
         protected override void OnAppearing()

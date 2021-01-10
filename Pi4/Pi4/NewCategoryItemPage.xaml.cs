@@ -27,13 +27,17 @@ namespace Pi4
         {
             using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
             {
-
                 categoryItem.Title = entryTitle.Text;
                 categoryItem.Link = entryLink.Text;
                 categoryItem.ShortDescription = entryDesc.Text;
                 categoryItem.Content = entryContent.Text;
                 if (categoryItem.Title == "" || categoryItem.Title == null) {
                     DisplayAlert("Mislukt", "Een item moet een titel hebben", "Ok");
+                    return;
+                }
+                if ((categoryItem.Content == "" && categoryItem.Content == null) || (categoryItem.Link == "" && categoryItem.Link == null) && (categoryItem.Title == "" && categoryItem.Title == null))
+                {
+                    DisplayAlert("Mislukt", "Een item moet een titel en content of link hebben", "Ok");
                     return;
                 }
                 connection.CreateTable<CategoryItem>();
